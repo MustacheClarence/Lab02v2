@@ -1,0 +1,39 @@
+﻿@model List<Player>
+    
+  
+@{
+    ViewData["Title"] = "Subir archivo CSV para jugadores";
+}
+<h2> @ViewData["Title"]</h2>
+@using (Html.BeginForm("SubirArchivo","Player",FormMethod.Post,new {enctype="multipart/form-data"} ))
+{
+   <label form="file"> Subir Archivo</label>
+   <input type="file"Name="file"/>
+   <input type ="submit"value="Enviar"/>
+}
+
+@if(Model != null){
+   <table class = "table table-hover">
+       <thead>
+           <tr>
+               <td>Name</td>
+               <td>Last Name</td>
+               <td>Team</td>
+               <td>Rol</td>
+               <td>KDA</td>
+               <td>CS</td>
+           </tr>
+       </thead>
+        @foreach(var player in Model)
+        {
+            <tr>
+               <td>@player.Name</td>
+               <td>@player.LName</td>
+               <td>@player.Team</td>
+               <td>@player.Rol</td>
+               <td>@player.KDA</td>
+               <td>@player.CS</td>
+           </tr>
+        }
+    </table>     
+}
