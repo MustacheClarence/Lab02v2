@@ -3,8 +3,7 @@ using Lab02.Models;
 
 namespace Lab02.Controllers
 {
-    // Falta Agregar manualmente
-    
+        
     [Route("[controller]")]
     public class PlayerController : Controller
     {
@@ -39,6 +38,7 @@ namespace Lab02.Controllers
         [HttpPost("BuscarJugador")]
         public IActionResult BuscarJugadorName(string name, string Lname)
         {
+            tiempo.Start();
             Player player = new Player();
             for (int i = 0; i < playersList.Count; i++)
             {
@@ -48,10 +48,12 @@ namespace Lab02.Controllers
                     break;
                 }
             }
+            tiempo.Stop();
             return View(player);
         }
         public IActionResult BuscarJugadorRol(string rol)
         {
+            tiempo.Start();
             List<Player> RolList = new List<Player>();
             for (int i = 0;i < playersList.Count; i++)
             {
@@ -60,10 +62,12 @@ namespace Lab02.Controllers
                     RolList.Add(playersList[i]);
                 }
             }
+            tiempo.Stop();
             return View(RolList);
         }
         public IActionResult BuscarJugadorKDA(double kda)
         {
+            tiempo.Start();
             List<Player> KDAList = new List<Player>();
             for (int i = 0; i < playersList.Count; i++)
             {
@@ -72,10 +76,12 @@ namespace Lab02.Controllers
                     KDAList.Add(playersList[i]);
                 }
             }
+            tiempo.Stop();
             return View();
         }
         public IActionResult BuscarJugadorCS(int cs)
         {
+            tiempo.Start();
             List<Player> CSList = new List<Player>();
             for (int i = 0; i < playersList.Count; i++)
             {
@@ -84,10 +90,12 @@ namespace Lab02.Controllers
                     CSList.Add(playersList[i]);
                 }
             }
+            tiempo.Stop();
             return View();
         }
         public IActionResult BuscarJugadorTeam(string team)
         {
+            tiempo.Start();
             List<Player> TeamList = new List<Player>();
             for (int i = 0; i < playersList.Count; i++)
             {
@@ -96,6 +104,7 @@ namespace Lab02.Controllers
                     TeamList.Add(playersList[i]);
                 }
             }
+            tiempo.Stop();
             return View();
         }
 
@@ -111,6 +120,7 @@ namespace Lab02.Controllers
         [HttpPost("AgregarJugador")]
         public IActionResult AgregarJugador(string name, string LName, string Team, string Rol, double KDA, int CS)
         {
+            tiempo.Start();
             Player nuevoPlayer = new Player();
             nuevoPlayer.Name = name;
             nuevoPlayer.LName = LName;
@@ -119,7 +129,8 @@ namespace Lab02.Controllers
             nuevoPlayer.KDA = KDA;
             nuevoPlayer.CS = CS;
             playersList.Add(nuevoPlayer);
-            return View();
+            tiempo.Stop();
+            return View(playersList);
         }
 
         [Route("SubirArchivo")]
