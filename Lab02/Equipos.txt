@@ -1,0 +1,3 @@
+Equipo1,coach1,liga1,2022
+Equipo2,coach2,liga2,2022
+Equipo3,coach3,liga3,2022

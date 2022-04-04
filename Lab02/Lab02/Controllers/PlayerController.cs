@@ -4,11 +4,123 @@ using Lab02.Models;
 namespace Lab02.Controllers
 {
     // Falta Agregar manualmente
-
+    
     [Route("[controller]")]
     public class PlayerController : Controller
     {
+        CustomTimer tiempo = new CustomTimer();
+
         List<Player> playersList = new List<Player>();
+
+
+
+        [Route("BuscarJugador")]
+        public IActionResult BuscarJugadorName()
+        {
+            return View();
+        }
+        public IActionResult BuscarJugadorRol()
+        {
+            return View();
+        }
+        public IActionResult BuscarJugadorKDA()
+        {
+            return View();
+        }
+        public IActionResult BuscarJugadorCS()
+        {
+            return View();
+        }
+        public IActionResult BuscarJugadorTeam()
+        {
+            return View();
+        }
+
+        [HttpPost("BuscarJugador")]
+        public IActionResult BuscarJugadorName(string name, string Lname)
+        {
+            Player player = new Player();
+            for (int i = 0; i < playersList.Count; i++)
+            {
+                if (playersList[i].Name == name && playersList[i].LName == Lname)
+                {
+                   player = playersList[i];
+                    break;
+                }
+            }
+            return View(player);
+        }
+        public IActionResult BuscarJugadorRol(string rol)
+        {
+            List<Player> RolList = new List<Player>();
+            for (int i = 0;i < playersList.Count; i++)
+            {
+                if (playersList[i].Rol == rol)
+                {
+                    RolList.Add(playersList[i]);
+                }
+            }
+            return View(RolList);
+        }
+        public IActionResult BuscarJugadorKDA(double kda)
+        {
+            List<Player> KDAList = new List<Player>();
+            for (int i = 0; i < playersList.Count; i++)
+            {
+                if (playersList[i].KDA == kda)
+                {
+                    KDAList.Add(playersList[i]);
+                }
+            }
+            return View();
+        }
+        public IActionResult BuscarJugadorCS(int cs)
+        {
+            List<Player> CSList = new List<Player>();
+            for (int i = 0; i < playersList.Count; i++)
+            {
+                if (playersList[i].CS == cs)
+                {
+                    CSList.Add(playersList[i]);
+                }
+            }
+            return View();
+        }
+        public IActionResult BuscarJugadorTeam(string team)
+        {
+            List<Player> TeamList = new List<Player>();
+            for (int i = 0; i < playersList.Count; i++)
+            {
+                if (playersList[i].Team == team)
+                {
+                    TeamList.Add(playersList[i]);
+                }
+            }
+            return View();
+        }
+
+
+
+
+        [Route("AgregarJugador")]
+        public IActionResult AgregarJugador() 
+        { 
+            return View(); 
+        }
+
+        [HttpPost("AgregarJugador")]
+        public IActionResult AgregarJugador(string name, string LName, string Team, string Rol, double KDA, int CS)
+        {
+            Player nuevoPlayer = new Player();
+            nuevoPlayer.Name = name;
+            nuevoPlayer.LName = LName;
+            nuevoPlayer.Team = Team;
+            nuevoPlayer.Rol = Rol;
+            nuevoPlayer.KDA = KDA;
+            nuevoPlayer.CS = CS;
+            playersList.Add(nuevoPlayer);
+            return View();
+        }
 
         [Route("SubirArchivo")]
         public IActionResult SubirArchivo()
@@ -20,6 +132,7 @@ namespace Lab02.Controllers
         [HttpPost("SubirArchivo")]
         public IActionResult SubirArchivo(IFormFile file)
         {
+            tiempo.Start();
             if (file != null)
             {
                 try
@@ -51,7 +164,8 @@ namespace Lab02.Controllers
 
                     ViewBag.Error = e.Message;
                 }
-            }         
+            }
+            tiempo.Stop();
             return View(playersList);
         }
     }
